@@ -1,0 +1,3 @@
+retriever.retrieve(
+    question
+)
