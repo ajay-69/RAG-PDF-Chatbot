@@ -10,7 +10,7 @@ class Chunker:
     def split_sentences(self, text:str) -> list[str]:
         sentences = re.split(r' *[\.\?!][\'"\)\]]* *', text)
         sentences = [s.strip() for s in sentences if s.strip()]
-        return sentences  
+        return sentences
 
     def create_chunks(self, sentences:list[str]) -> list[str]:
         chunks = []
@@ -21,3 +21,4 @@ class Chunker:
     def split(self, text:str) -> list[str]:
         sentences = self.split_sentences(text)
         return self.create_chunks(sentences)
+        
