@@ -6,3 +6,6 @@ class EmbeddingModel:
 
     def encode(self, chunks:list[str]) -> np.ndarray:
         return self.model.encode(chunks, batch_size=32, show_progress_bar=True)
+    @property
+    def dimension(self) -> int:
+        return self.model.get_sentence_embedding_dimension()
