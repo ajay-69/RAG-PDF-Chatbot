@@ -8,4 +8,4 @@ class EmbeddingModel:
         return self.model.encode(chunks, batch_size=32, show_progress_bar=True)
     @property
     def dimension(self) -> int:
-        return self.model.get_sentence_embedding_dimension()
+        return self.model.get_embedding_dimension()

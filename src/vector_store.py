@@ -1,3 +1,4 @@
+import faiss
 import numpy as np
 import pickle
 from pathlib import Path
@@ -14,7 +15,7 @@ class VectorStore:
     def save(self, path:str) -> None:
         path = Path(path)
         path.mkdir(parents=True, exist_ok=True)
-        faiss.write_index(self.index, Path(path)/"index.faiss")
+        faiss.write_index(self.index, str(Path(path)/"index.faiss"))
         with open(Path(path)/"chunks.pkl", "wb") as file:
             pickle.dump(self.chunks, file)
 

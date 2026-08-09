@@ -20,7 +20,7 @@ class Generator:
             add_generation_prompt=True,
             return_tensors="pt"
         )
-        inputs = inputs,to(self.device)
+        inputs = inputs.to(self.device)
         # inputs = self.tokenizer(prompt, return_tensors="pt")
         # input_length = inputs["input_ids"].shape[1]
         input_length = inputs.shape[1]
