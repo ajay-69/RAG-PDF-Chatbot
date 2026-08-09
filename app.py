@@ -16,7 +16,7 @@ prompt_builder = PromptBuilder()
 generator = Generator(LLM_NAME, device)
 
 while True:
-    query = input("ask: ")
+    query = input("\nask: ")
     if query.lower() in {"exit", "quit"}:
         break
     chunks = retriever.retrieve(query)
