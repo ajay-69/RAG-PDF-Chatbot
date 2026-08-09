@@ -22,10 +22,10 @@ class Generator:
         )
         inputs = inputs.to(self.device)
         # inputs = self.tokenizer(prompt, return_tensors="pt")
-        # input_length = inputs["input_ids"].shape[1]
-        input_length = inputs.shape[1]
+        input_length = inputs["input_ids"].shape[1]
+        # input_length = inputs.shape[1]
         output = self.model.generate(
-            inputs,
+            **inputs,
             max_new_tokens=200
         )
         generated_tokens = output[0][input_length:]
