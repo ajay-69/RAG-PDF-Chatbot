@@ -3,10 +3,12 @@ from src.chunker import Chunker
 from src.embedding_model import EmbeddingModel
 from src.vector_store import VectorStore
 from src.config import PDF_PATH, CHUNK_SIZE, CHUNK_OVERLAP, EMBEDDING_MODEL, VECTOR_DB_PATH
+import torch
+device = "cuda" if torch.cuda.is_available() else "cpu"
 
 pdf_loader = PDFLoader()
 chunker = Chunker(CHUNK_SIZE, CHUNK_OVERLAP)
-embedding_model = EmbeddingModel(EMBEDDING_MODEL)
+embedding_model = EmbeddingModel(EMBEDDING_MODEL, device)
 vector_store = VectorStore(embedding_model.dimension)
 
 doc = pdf_loader.load(PDF_PATH)
