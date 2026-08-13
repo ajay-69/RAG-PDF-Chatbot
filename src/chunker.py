@@ -7,18 +7,30 @@ class Chunker:
         self.overlap = overlap
         self.step = chunk_size - overlap
 
-    def split_sentences(self, text:str) -> list[str]:
-        sentences = re.split(r' *[\.\?!][\'"\)\]]* *', text)
-        sentences = [s.strip() for s in sentences if s.strip()]
-        return sentences
+    # def split_sentences(self, text:str) -> list[str]:
+    #     sentences = re.split(r' *[\.\?!][\'"\)\]]* *', text)
+    #     sentences = [s.strip() for s in sentences if s.strip()]
+    #     return sentences
 
-    def create_chunks(self, sentences:list[str]) -> list[str]:
+    # def create_chunks(self, sentences:list[str]) -> list[str]:
+    #     chunks = []
+    #     for i in range(0, len(sentences), self.step):
+    #         chunk = " ".join(sentences[i:i+self.chunk_size])
+    #         chunks.append(chunk)
+    #     return chunks
+    # def split(self, text:str) -> list[str]:
+    #     sentences = self.split_sentences(text)
+    #     return self.create_chunks(sentences)
+    def create_chunks(self, text: str) -> list[str]:
+        words = text.split()
         chunks = []
-        for i in range(0, len(sentences), self.step):
-            chunk = " ".join(sentences[i:i+self.chunk_size])
+        for i in range(0, len(words), self.step):
+            chunk_words = words[i : i+self.chunk_size]
+            chunk = " ".join(chunk_words)
             chunks.append(chunk)
         return chunks
-    def split(self, text:str) -> list[str]:
-        sentences = self.split_sentences(text)
-        return self.create_chunks(sentences)
+
+    def split(self, text: str) -> list[str]:
+        return self.create_chunks(text)
+
         

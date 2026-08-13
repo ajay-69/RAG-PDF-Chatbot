@@ -4,12 +4,13 @@ import pickle
 from pathlib import Path
 class VectorStore:
     def __init__(self, dimension: int):
-        self.index = faiss.IndexFlatL2(dimension)
+        self.index = faiss.IndexFlatIP(dimension)
         self.chunks: list[str] = []
         self.metadata: list[dict] = []
 
     def add(self, vectors:np.ndarray, chunks:list[str]):
         vectors = vectors.astype(np.float32)
+        faiss.normalize_L2(vectors)
         self.index.add(vectors)
         self.chunks.extend(chunks)
     def save(self, path:str) -> None:
@@ -25,8 +26,14 @@ class VectorStore:
             self.chunks = pickle.load(file)
 
     def search(self, query_emb:np.ndarray, top_k:int) -> list[str]:
-        distance, indices = self.index.search(query_emb, top_k)
-        chunks = []
-        for i in indices[0]:
-            chunks.append(self.chunks[i])
-        return chunks
+        query_emb = query_emb.astype(np.float32)
+        faiss.normalize_L2(query_emb)
+        scores, indices = self.index.search(query_emb, top_k)
+        results = []
+        for score, index in zip(scores[0], indices[0]):
+            results.append({
+            "chunk": self.chunks[index],
+            "score": float(score),
+            "index": int(index)
+            })
+        return results
