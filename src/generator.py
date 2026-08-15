@@ -6,13 +6,19 @@ class Generator:
         self.device = device
         self.model.to(self.device)
 
-    def generate(self, prompt:str)-> str:
+    def generate(self, prompt:str) -> str:
         messages = [
-            {"role": "system",
-                "content": ("Answer the question using only the provided context. "
-                    "If the answer is not present in the context, say you don't know.")
+            {
+                "role": "system",
+                "content": (
+                    "Answer the question using only the provided context. "
+                    "If the answer is not present in the context, say you don't know."
+                )
             },
-            {"role": "user", "content": prompt}
+            {
+                "role": "user",
+                "content": prompt
+            }
         ]
         inputs = self.tokenizer.apply_chat_template(
             messages,
@@ -21,9 +27,15 @@ class Generator:
             return_tensors="pt"
         )
         inputs = inputs.to(self.device)
-        input_length = inputs["input_ids"].shape[1]
+
+        if hasattr(inputs, "input_ids"):
+            input_ids = inputs.input_ids
+        else:
+            input_ids = inputs
+
+        input_length = input_ids.shape[1]
         output = self.model.generate(
-            **inputs,
+            input_ids = input_ids,
             max_new_tokens=200
         )
         generated_tokens = output[0][input_length:]

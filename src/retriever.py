@@ -3,7 +3,7 @@ class Retriever:
         self.embedding_model = embedding_model
         self.vector_store = vector_store
         self.top_k = top_k
-
+        
     def retrieve(self, query:str) -> list[dict]:
         query_emb = self.embedding_model.encode([query])
         return self.vector_store.search(query_emb, self.top_k)

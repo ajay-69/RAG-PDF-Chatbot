@@ -1,28 +1,21 @@
 class PromptBuilder:
 
-    def build(self, query: str, chunks: list[str]) -> str:
+    def build(self, query: str, retrieved_chunks: list[dict]) -> str:
 
-        context = "\n\n".join(
-            f"[Context {i}]\n{chunk}"
-            for i, chunk in enumerate(chunks, 1)
-        )
+        context_parts = []
 
+        for i, result in enumerate(retrieved_chunks,1):
+            context_parts.append(f"[Context {i}]\n{result['chunk']}")
+
+        context = "\n\n".join(context_parts)
         prompt = f"""
-Use only the information provided in the context to answer the question.
-
-Rules:
-- Answer the question directly.
-- Answer only what the question asks.
-- Do not use information outside the context.
-- Do not make up or assume facts.
-- If the context does not contain the answer, say "I don't know."
-- Keep the answer concise.
-
 Context:
 {context}
-Question:
-{query}
-Answer:
-"""
 
-        return prompt.strip()
+Question:
+{question}
+
+Answer the question using only the context above.
+If the answer cannot be found in the context, say you don't know.
+"""
+        return prompt
