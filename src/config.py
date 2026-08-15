@@ -1,7 +1,7 @@
-PDF_PATH = "data/book.pdf"
+PDF_PATH = "data/RAG_pdf.pdf"
 
-CHUNK_SIZE :int =  100
-CHUNK_OVERLAP: int  = 20
+CHUNK_SIZE :int =  300
+CHUNK_OVERLAP: int  = 50
 
 EMBEDDING_MODEL = "BAAI/bge-small-en-v1.5"
 TOP_K: int = 10

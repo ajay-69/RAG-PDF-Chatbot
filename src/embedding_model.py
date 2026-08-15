@@ -8,7 +8,7 @@ class EmbeddingModel:
         )
 
     def encode(self, chunks:list[str]) -> np.ndarray:
-        return self.model.encode(chunks, batch_size=32, show_progress_bar=True)
+        return self.model.encode(chunks, batch_size=32, show_progress_bar=True, convert_to_numpy=True)
     @property
     def dimension(self) -> int:
         return self.model.get_embedding_dimension()
