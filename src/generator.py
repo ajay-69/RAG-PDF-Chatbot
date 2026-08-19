@@ -1,6 +1,6 @@
 class Generator:
     def __init__(self, model_name:str, device:str):
-        from transformers import AutoTokenizer, AutoModelForCausalLM
+        from transformers import (AutoTokenizer, AutoModelForCausalLM)
         self.tokenizer = AutoTokenizer.from_pretrained(model_name)
         self.model = AutoModelForCausalLM.from_pretrained(model_name)
         self.device = device
@@ -11,8 +11,10 @@ class Generator:
             {
                 "role": "system",
                 "content": (
-                    "Answer the question using only the provided context. "
-                    "If the answer is not present in the context, say you don't know."
+                    "Answer the question using only the "
+                    "provided context. "
+                    "If the answer is not present in the "
+                    "context, say you don't know."
                 )
             },
             {
@@ -27,7 +29,7 @@ class Generator:
             return_tensors="pt"
         )
         inputs = inputs.to(self.device)
-
+        # Handle both Tensor and BatchEncoding outputs
         if hasattr(inputs, "input_ids"):
             input_ids = inputs.input_ids
         else:
