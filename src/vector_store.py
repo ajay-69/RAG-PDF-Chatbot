@@ -12,7 +12,7 @@ class VectorStore:
         vectors = vectors.astype(np.float32)
         self.index.add(vectors)
         self.chunks.extend(
-            [chunks["text"] for chunk in chunks]
+            [chunk["text"] for chunk in chunks]
         )
         self.metadata.extend(
             [
@@ -26,7 +26,10 @@ class VectorStore:
         path.mkdir(parents=True, exist_ok=True)
         faiss.write_index(self.index, str(path/"index.faiss"))
         with open(path/"chunks.pkl", "wb") as file:
+            pickle.dump(self.chunks, file)
+        with open(path/"metadata.pkl", "wb") as file:
             pickle.dump(self.metadata, file)
+        
 
     def load(self, path:str) -> None:
         path = Path(path)
