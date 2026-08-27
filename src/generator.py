@@ -36,10 +36,11 @@ class Generator:
             input_ids = inputs
 
         input_length = input_ids.shape[1]
-        output = self.model.generate(
-            input_ids = input_ids,
-            max_new_tokens=200
-        )
+        with torch.inference_mode():
+            output = self.model.generate(
+                input_ids = input_ids,
+                max_new_tokens=200
+            )
         generated_tokens = output[0][input_length:]
         answer = self.tokenizer.decode(generated_tokens, skip_special_tokens=True)
         return answer
