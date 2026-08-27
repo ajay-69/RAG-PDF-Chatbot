@@ -19,21 +19,16 @@ print("Characters:", len(doc))
 chunks = chunker.split(doc)
 
 print("Total chunks:", len(chunks))
+chunk_texts = [
+    chunk["text"]
+    for chunk in chunks
+]
 
-vectors = embedding_model.encode(chunks)
-
+vectors = embedding_model.encode(chunk_texts)
 print("Embedding shape:", vectors.shape)
 
-vector_store.add(
-    vectors,
-    chunks
-)
-
-print(
-    "Total vectors:",
-    vector_store.index.ntotal
-)
+vector_store.add(vectors, chunks)
+print("Total vectors:", vector_store.index.ntotal)
 
 vector_store.save(VECTOR_DB_PATH)
-
 print("Vector store saved.")
