@@ -14,12 +14,10 @@ class Reranker:
         scores = self.model.predict(pairs)
         reranked = []
         for result, score in zip(results, scores):
-            reranked.append({
-                "chunk": result["chunk"],
-                "score": float(score),
-                "index": result["index"]
-            })
-
+            item = result.copy()
+            item["score"] = float(score)
+            reranked.append(item)
+            
         reranked.sort(
             key=lambda x: x["score"],
             reverse=True

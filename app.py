@@ -27,6 +27,7 @@ while True:
     for i, result in enumerate(chunks, 1):
         print(f"\n--- FAISS Rank {i} ---")
         print("Index:", result["index"])
+        print("Page:", result["page"])
         print("Distance:", result["score"])
         print("Text:", result["chunk"][:500])
 
@@ -36,6 +37,7 @@ while True:
     for i, result in enumerate(reranked_chunks, 1):
         print(f"\n--- Reranked Rank {i} ---")
         print("Index:", result["index"])
+        print("Page:", result["page"])
         print("Score:", result["score"])
         print("Text:", result["chunk"][:500])
 
