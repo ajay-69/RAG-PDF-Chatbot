@@ -1,0 +1,22 @@
+[
+  {
+    "question": "What is the purpose of the Artificial Intelligence Act?",
+    "relevant_indices": [5]
+  },
+  {
+    "question": "What benefits can artificial intelligence provide?",
+    "relevant_indices": [37]
+  },
+  {
+    "question": "What risks can artificial intelligence create?",
+    "relevant_indices": [52]
+  },
+  {
+    "question": "What is a high-risk AI system?",
+    "relevant_indices": [57]
+  },
+  {
+    "question": "What fundamental rights does the proposal aim to protect?",
+    "relevant_indices": [23]
+  }
+]
