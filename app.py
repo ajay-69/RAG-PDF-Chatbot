@@ -22,26 +22,11 @@ while True:
     if query.lower() in {"exit", "quit"}:
         break
 
-    chunks = retriever.retrieve(query)
-    print("\n========== FAISS RESULTS ==========")
-    for i, result in enumerate(chunks, 1):
-        print(f"\n--- FAISS Rank {i} ---")
-        print("Index:", result["index"])
-        print("Page:", result["page"])
-        print("Distance:", result["score"])
-        print("Text:", result["chunk"][:500])
+    results = retriever.retrieve(query)
 
 
-    reranked_chunks = reranker.rerank(query, chunks, RERANK_TOP_K)
-    print("\n========== RERANKED RESULTS ==========")
-    for i, result in enumerate(reranked_chunks, 1):
-        print(f"\n--- Reranked Rank {i} ---")
-        print("Index:", result["index"])
-        print("Page:", result["page"])
-        print("Score:", result["score"])
-        print("Text:", result["chunk"][:500])
-
-    prompt = prompt_builder.build(query,reranked_chunks)
-    ans = generator.generate(prompt)
+    reranked_results = reranker.rerank(query, results, RERANK_TOP_K)
+    prompt = prompt_builder.build(query,reranked_results)
+    answer = generator.generate(prompt)
     print("\nANSWER:")
-    print(ans)
+    print(answer)
