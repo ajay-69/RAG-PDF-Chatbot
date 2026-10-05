@@ -4,7 +4,7 @@ import pickle
 from pathlib import Path
 class VectorStore:
     def __init__(self, dimension: int):
-        self.index = faiss.IndexFlatL2(dimension)
+        self.index = faiss.IndexFlatIP(dimension)
         self.chunks: list[str] = []
         self.metadata: list[dict] = []
 
