@@ -16,7 +16,11 @@ class VectorStore:
         )
         self.metadata.extend(
             [
-                {"page": chunk["page"]}
+                {
+                    "page": chunk["page"],
+                    "source": chunk["source"],
+                    "chunk_id": chunk["chunk_id"]
+                }
                 for chunk in chunks
             ]
         )
@@ -47,9 +51,12 @@ class VectorStore:
             if index == -1:
                 continue
             results.append({
-            "chunk": self.chunks[index],
-            "score": float(score),
-            "index": int(index),
-             "page": self.metadata[index]["page"]
+                "chunk": self.chunks[index],
+                "score": float(score),
+                "index": int(index),
+
+                "page": self.metadata[index]["page"],
+                "source": self.metadata[index]["source"],
+                "chunk_id": self.metadata[index]["chunk_id"]
             })
         return results

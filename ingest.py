@@ -14,7 +14,7 @@ vector_store = VectorStore(embedding_model.dimension)
 
 doc = pdf_loader.load(PDF_PATH)
 
-print("Characters:", len(doc))
+print("pages:", len(doc))
 
 chunks = chunker.split(doc)
 
