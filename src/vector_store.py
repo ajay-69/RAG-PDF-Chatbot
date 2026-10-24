@@ -43,7 +43,7 @@ class VectorStore:
         with open(path/"metadata.pkl", "rb") as file:
             self.metadata = pickle.load(file)
 
-    def search(self, query_emb:np.ndarray, top_k:int) -> list[str]:
+    def search(self, query_emb:np.ndarray, top_k:int) -> list[dict]:
         query_emb = query_emb.astype(np.float32)
         distances, indices = self.index.search(query_emb, top_k)
         results = []

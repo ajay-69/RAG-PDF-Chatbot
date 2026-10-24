@@ -26,6 +26,11 @@ while True:
 
 
     reranked_results = reranker.rerank(query, results, RERANK_TOP_K)
+    for result in reranked_results:
+        print("\nChunk:", result["chunk_id"])
+        print("Page:", result["page"])
+        print("Vector score:", result["score"])
+        print("Rerank score:", result["rerank_score"])
     prompt = prompt_builder.build(query,reranked_results)
     answer = generator.generate(prompt)
     print("\nANSWER:")

@@ -15,11 +15,11 @@ class Reranker:
         reranked = []
         for result, score in zip(results, scores):
             item = result.copy()
-            item["score"] = float(score)
+            item["rerank_score"] = float(score)
             reranked.append(item)
             
         reranked.sort(
-            key=lambda x: x["score"],
+            key=lambda x: x["rerank_score"],
             reverse=True
         )
 
